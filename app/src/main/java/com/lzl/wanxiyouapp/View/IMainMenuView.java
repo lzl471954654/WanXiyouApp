@@ -3,6 +3,8 @@ package com.lzl.wanxiyouapp.View;
 import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 
+import com.lzl.wanxiyouapp.Bean.Student;
+
 /**
  * Created by LZL on 2017/7/19.
  */
@@ -20,9 +22,9 @@ public interface IMainMenuView {
 
     public void dissmissLoginDialog();
 
-    public void onLoginSuccess(String cookie);
+    public void onLoginSuccess(Student student);
 
-    public void onLoginError();
+    public void onLoginError(String error);
 
     public void getScretImageSuccess(Bitmap bitmap,String cookie);
 }

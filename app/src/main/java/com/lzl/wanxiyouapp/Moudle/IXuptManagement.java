@@ -13,5 +13,8 @@ public interface IXuptManagement {
 
     public void userLogon(String username,String password,String cookie);
 
+    public void userLogon(String id,String password,String code,String cookie);
+
+
     public void loadScretImage();
 }

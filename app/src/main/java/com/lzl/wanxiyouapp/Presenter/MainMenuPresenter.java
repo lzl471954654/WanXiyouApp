@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 
+import com.lzl.wanxiyouapp.Bean.Student;
 import com.lzl.wanxiyouapp.CallBack;
 import com.lzl.wanxiyouapp.Moudle.IUser;
 import com.lzl.wanxiyouapp.Moudle.IXuptManagement;
@@ -61,6 +62,7 @@ public class MainMenuPresenter implements IMainMenuPresenter {
     @Override
     public void showLogonDialog() {
         mainMenuView.showLoginDialog();
+        getScretImage();
     }
 
     @Override
@@ -68,4 +70,18 @@ public class MainMenuPresenter implements IMainMenuPresenter {
         management.userLogon(username,password,cookie);
     }
 
+    @Override
+    public void login(String id, String password, String code, String cookie) {
+        management.userLogon(id,password,code,cookie);
+    }
+
+    public void onLoginSuccess(Student student)
+    {
+        mainMenuView.onLoginSuccess(student);
+    }
+
+    @Override
+    public void onLoginError(String error) {
+        mainMenuView.onLoginError(error);
+    }
 }

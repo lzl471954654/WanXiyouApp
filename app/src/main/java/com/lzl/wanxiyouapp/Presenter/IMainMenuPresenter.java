@@ -2,6 +2,7 @@ package com.lzl.wanxiyouapp.Presenter;
 
 import android.graphics.Bitmap;
 
+import com.lzl.wanxiyouapp.Bean.Student;
 import com.lzl.wanxiyouapp.Moudle.IXuptManagement;
 
 /**
@@ -11,9 +12,15 @@ import com.lzl.wanxiyouapp.Moudle.IXuptManagement;
 public interface IMainMenuPresenter {
     public boolean hasAlreadyLogin();
 
-    public boolean wasFirstLogin();
+    public boolean wasFirstLogin(); //检查第一次登陆
 
-    public void login(String username,String password,String cookie);
+    public void login(String username,String password,String cookie);   // 登陆
+
+    public void login(String id,String password,String code,String cookie);
+
+    public void onLoginError(String error);
+
+    public void onLoginSuccess(Student student);
 
     public void showLogonDialog();
 

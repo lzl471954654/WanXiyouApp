@@ -23,8 +23,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
+import com.lzl.wanxiyouapp.Bean.Student;
 import com.lzl.wanxiyouapp.Moudle.User;
 import com.lzl.wanxiyouapp.Moudle.XuptManagement;
+import com.lzl.wanxiyouapp.MyApplication;
 import com.lzl.wanxiyouapp.Presenter.IMainMenuPresenter;
 import com.lzl.wanxiyouapp.Presenter.MainMenuPresenter;
 import com.lzl.wanxiyouapp.R;
@@ -96,10 +98,9 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
         final TextInputEditText username = (TextInputEditText)logonDialog.findViewById(R.id.login_username);
         final TextInputEditText password = (TextInputEditText)logonDialog.findViewById(R.id.login_password);
         final CheckBox checkBox = (CheckBox)logonDialog.findViewById(R.id.login_remember_pass);
-        Button button = (Button)logonDialog.findViewById(R.id.login_button);
+        final Button button = (Button)logonDialog.findViewById(R.id.login_button);
         ImageView imageView = (ImageView) logonDialog.findViewById(R.id.scret_code_image);
-        TextInputEditText scretCode = (TextInputEditText)logonDialog.findViewById(R.id.scret_code_input);
-        presenter.getScretImage();
+        final TextInputEditText scretCode = (TextInputEditText)logonDialog.findViewById(R.id.scret_code_input);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,13 +110,22 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.login(username.getText().toString(),password.getText().toString(),null);
+                String id = username.getText().toString();
+                String pass = password.getText().toString();
+                String code = scretCode.getText().toString();
+               if(id!=null&&pass!=null&&code!=null&&cookie!=null)
+                   presenter.login(username.getText().toString(),password.getText().toString(),scretCode.getText().toString(),cookie);
+                else
+                    Snackbar.make(button,"用户名，密码，验证码不能为空",Snackbar.LENGTH_SHORT).show();
             }
         });
         logonDialog.setCancelable(false);
         logonDialog.create();
         logonDialog.show();
+        presenter.getScretImage();
+        //presenter.getScretImage();
     }
+
 
     @Override
     public void getScretImageSuccess(Bitmap bitmap, String cookie) {
@@ -156,15 +166,18 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
     }
 
     @Override
-    public void onLoginError() {
-        Snackbar.make(logonDialog.getCurrentFocus(),"登录失败",Snackbar.LENGTH_SHORT);
+    public void onLoginError(String error) {
+        Snackbar.make(logonDialog.getCurrentFocus(),error,Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onLoginSuccess(String cookie) {
-        Snackbar.make(logonDialog.getCurrentFocus(),"登录成功",Snackbar.LENGTH_SHORT);
-
-        dissmissLoginDialog();
+    public void onLoginSuccess(Student student) {
+        MyApplication.student = student;
+        if(student!=null)
+        {
+            Snackbar.make(getCurrentFocus(),student.getName()+"，登录成功",Snackbar.LENGTH_SHORT).show();
+            dissmissLoginDialog();
+        }
     }
 
     @Override

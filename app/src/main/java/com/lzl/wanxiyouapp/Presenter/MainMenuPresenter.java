@@ -5,10 +5,9 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 
 import com.lzl.wanxiyouapp.Bean.Student;
-import com.lzl.wanxiyouapp.CallBack;
-import com.lzl.wanxiyouapp.Moudle.IUser;
-import com.lzl.wanxiyouapp.Moudle.IXuptManagement;
-import com.lzl.wanxiyouapp.View.IMainMenuView;
+import com.lzl.wanxiyouapp.Moudle.MoudleInterface.IXuptManagement;
+import com.lzl.wanxiyouapp.Presenter.PresenterInterface.IMainMenuPresenter;
+import com.lzl.wanxiyouapp.View.ViewInterface.IMainMenuView;
 
 /**
  * Created by LZL on 2017/7/20.
@@ -78,6 +77,7 @@ public class MainMenuPresenter implements IMainMenuPresenter {
     public void onLoginSuccess(Student student)
     {
         mainMenuView.onLoginSuccess(student);
+        mainMenuView.changeMainMenuUserInfo();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.lzl.wanxiyouapp.View;
+package com.lzl.wanxiyouapp.View.ViewInterface;
 
 import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
@@ -19,6 +19,10 @@ public interface IMainMenuView {
     public void onSearchLocalDataResult(boolean result,Object object);
 
     public void showLoginDialog();
+
+    public void showLoginDialogWithoutVerificationCode();
+
+    public void changeMainMenuUserInfo();
 
     public void dissmissLoginDialog();
 

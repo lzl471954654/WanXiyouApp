@@ -1,9 +1,9 @@
-package com.lzl.wanxiyouapp.Presenter;
+package com.lzl.wanxiyouapp.Presenter.PresenterInterface;
 
 import android.graphics.Bitmap;
 
 import com.lzl.wanxiyouapp.Bean.Student;
-import com.lzl.wanxiyouapp.Moudle.IXuptManagement;
+import com.lzl.wanxiyouapp.Moudle.MoudleInterface.IXuptManagement;
 
 /**
  * Created by LZL on 2017/7/20.

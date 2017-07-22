@@ -1,7 +1,6 @@
 package com.lzl.wanxiyouapp.View;
 
 import android.app.Dialog;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,20 +15,20 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.lzl.wanxiyouapp.Bean.Student;
-import com.lzl.wanxiyouapp.Moudle.User;
 import com.lzl.wanxiyouapp.Moudle.XuptManagement;
 import com.lzl.wanxiyouapp.MyApplication;
-import com.lzl.wanxiyouapp.Presenter.IMainMenuPresenter;
+import com.lzl.wanxiyouapp.Presenter.PresenterInterface.IMainMenuPresenter;
 import com.lzl.wanxiyouapp.Presenter.MainMenuPresenter;
 import com.lzl.wanxiyouapp.R;
+import com.lzl.wanxiyouapp.View.ViewInterface.IMainMenuView;
 
 /**
  * Created by LZL on 2017/7/19.
@@ -38,6 +37,7 @@ import com.lzl.wanxiyouapp.R;
 public class MainMenuActivity extends AppCompatActivity implements IMainMenuView,NavigationView.OnNavigationItemSelectedListener {
     NavigationView navigationView;
     DrawerLayout drawerLayout;
+    TextView headerUsername;
     Toolbar toolbar;
     IMainMenuPresenter presenter;
     Dialog logonDialog;
@@ -79,6 +79,13 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
             case R.id.navigation_run:
             {
                 replaceFragment(new EmptyFragment());
+                break;
+            }
+            case R.id.navigation_score:
+            {
+                System.out.println("click!");
+                drawerLayout.closeDrawer(Gravity.START);
+                replaceFragment(new ScoreFragment());
                 break;
             }
         }
@@ -158,11 +165,17 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
         setSupportActionBar(toolbar);
     }
 
+    @Override
+    public void changeMainMenuUserInfo() {
+        headerUsername.setText(MyApplication.student.getName());
+    }
+
     public void init()
     {
         navigationView = (NavigationView)findViewById(R.id.navigationView);
         toolbar = (Toolbar)findViewById(R.id.main_menu_toolbar);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
+        headerUsername = (TextView)navigationView.getHeaderView(0).findViewById(R.id.user_name);
     }
 
     @Override
@@ -187,5 +200,12 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
             logonDialog.dismiss();
             logonDialog = null;
         }
+    }
+
+    @Override
+    public void showLoginDialogWithoutVerificationCode() {
+        /*
+        * 快速登陆接口 无验证码登陆
+        * */
     }
 }

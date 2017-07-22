@@ -1,5 +1,7 @@
 package com.lzl.wanxiyouapp.Moudle;
 
+import com.lzl.wanxiyouapp.Moudle.MoudleInterface.IUser;
+
 /**
  * Created by LZL on 2017/7/20.
  */

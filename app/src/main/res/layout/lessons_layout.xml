@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TableRow>
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:id="@+id/position_box"
+                android:background="@drawable/textview_allline"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:text="周一"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:text="周二"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:text="周三"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:text="周四"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:text="周五"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:text="周六"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:text="周日"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="55dp"
+                android:text="1"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="55dp"
+                android:text="2"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="55dp"
+                android:text="3"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="55dp"
+                android:text="4"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="55dp"
+                android:text="5"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="55dp"
+                android:text="6"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="55dp"
+                android:text="7"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="55dp"
+                android:text="8"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="55dp"
+                android:text="9"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="55dp"
+                android:text="10"
+                android:gravity="center"
+                android:background="@drawable/textview_allline"
+                />
+
+        </TableRow>
+
+
+    </TableLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/addLesson_layout"
+        android:paddingTop="35dp"
+        android:paddingLeft="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+    </FrameLayout>
+
+
+</RelativeLayout>

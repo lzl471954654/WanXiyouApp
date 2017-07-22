@@ -6,14 +6,13 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 
 import com.lzl.wanxiyouapp.Bean.Student;
-import com.lzl.wanxiyouapp.CallBack;
-import com.lzl.wanxiyouapp.Presenter.IMainMenuPresenter;
+import com.lzl.wanxiyouapp.Moudle.MoudleInterface.IXuptManagement;
+import com.lzl.wanxiyouapp.Presenter.PresenterInterface.IMainMenuPresenter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

@@ -11,5 +11,10 @@ public interface ILessonFragment {
 
     public void showLessonTable(List<List<Map<String,String>>> lesson_list);
 
+    public void showProgressDialog();
+
+    public void dissmisProgressDialog();
+
+    public void showErrorDialog(String msg);
 
 }

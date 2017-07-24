@@ -24,6 +24,24 @@ public class ScoresFragmentPresenter implements IScorePresenter {
         handler = new Handler(context.getMainLooper());
     };
 
+    @Override
+    public void checkDataError() {
+        fragmen.showProgressDialog();
+        moudle.requestScoresList();
+    }
+
+    @Override
+    public void checkDataSuccess(Map<String, List<Map<String, String>>> scoreMap) {
+        fragmen.dissmisProgressDialog();
+        fragmen.refreshLayout(scoreMap);
+    }
+
+    @Override
+    public void checkData() {
+        fragmen.showProgressDialog();
+        moudle.checkData();
+    }
+
     public IScoresFragmen getFragmen() {
         return fragmen;
     }

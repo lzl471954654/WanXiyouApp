@@ -7,4 +7,6 @@ package com.lzl.wanxiyouapp.Moudle.MoudleInterface;
 public interface IScoresMoudle {
 
     public void requestScoresList();
+
+    public void checkData();
 }

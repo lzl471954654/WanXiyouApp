@@ -88,11 +88,11 @@
                 />
         </android.support.design.widget.TextInputLayout>
         <Button
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:id="@+id/login_button"
             android:layout_width="72dp"
             android:layout_height="38dp"
-            android:text="登陆"
+            android:text="登录"
             android:layout_marginEnd="11dp"
             android:foreground="?attr/selectableItemBackground"
             android:layout_below="@+id/login_scret_layout"

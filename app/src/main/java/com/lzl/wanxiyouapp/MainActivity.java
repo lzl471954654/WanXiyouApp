@@ -3,6 +3,8 @@ package com.lzl.wanxiyouapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import com.lzl.wanxiyouapp.View.MainMenuActivity;
 

@@ -10,9 +10,12 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.SocketTimeoutException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -41,6 +44,14 @@ public class ScoresMoudle implements IScoresMoudle {
     }
 
     @Override
+    public void checkData() {
+        if(MyApplication.scoresMap!=null)
+            presenter.checkDataSuccess(MyApplication.scoresMap);
+        else
+            presenter.checkDataError();
+    }
+
+    @Override
     public void requestScoresList() {
         Student student = MyApplication.student;
         if(student==null)
@@ -48,7 +59,10 @@ public class ScoresMoudle implements IScoresMoudle {
             presenter.onRequestError("用户信息异常！");
             return;
         }
-        OkHttpClient okHttpClient = new OkHttpClient();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10,TimeUnit.SECONDS)
+                .build();
         FormBody formBody = new FormBody.Builder()
                 .add("xh",student.getId())
                 .add("name",student.getName())
@@ -91,6 +105,7 @@ public class ScoresMoudle implements IScoresMoudle {
                             else
                             {
                                 System.out.println(map);
+                                MyApplication.scoresMap = map;
                                 presenter.onRequestSuccess(map);
                             }
                         }
@@ -104,6 +119,14 @@ public class ScoresMoudle implements IScoresMoudle {
                     {
                         e.printStackTrace();
                         presenter.onRequestError("数据出错！");
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                        String msg = "Another Exception";
+                        if(e instanceof SocketTimeoutException)
+                            msg = "连接服务器超时";
+                        presenter.onRequestError(msg);
                     }
                 }
                 else

@@ -11,27 +11,13 @@ import android.view.ViewGroup;
 
 import com.loopeer.cardstack.CardStackView;
 import com.lzl.wanxiyouapp.Adapter.ScoresCardStackAdapter;
-import com.lzl.wanxiyouapp.Bean.Student;
 import com.lzl.wanxiyouapp.Moudle.ScoresMoudle;
-import com.lzl.wanxiyouapp.MyApplication;
 import com.lzl.wanxiyouapp.Presenter.ScoresFragmentPresenter;
 import com.lzl.wanxiyouapp.R;
 import com.lzl.wanxiyouapp.View.ViewInterface.IScoresFragmen;
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Created by LZL on 2017/7/22.

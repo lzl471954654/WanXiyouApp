@@ -22,6 +22,7 @@
                 android:text="周一"
                 android:gravity="center"
                 android:background="@drawable/textview_allline"
+                android:id="@+id/week1"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -30,6 +31,7 @@
                 android:text="周二"
                 android:gravity="center"
                 android:background="@drawable/textview_allline"
+                android:id="@+id/week2"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -38,6 +40,7 @@
                 android:text="周三"
                 android:gravity="center"
                 android:background="@drawable/textview_allline"
+                android:id="@+id/week3"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -46,6 +49,7 @@
                 android:text="周四"
                 android:gravity="center"
                 android:background="@drawable/textview_allline"
+                android:id="@+id/week4"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -54,6 +58,7 @@
                 android:text="周五"
                 android:gravity="center"
                 android:background="@drawable/textview_allline"
+                android:id="@+id/week5"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -62,6 +67,7 @@
                 android:text="周六"
                 android:gravity="center"
                 android:background="@drawable/textview_allline"
+                android:id="@+id/week6"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -70,6 +76,7 @@
                 android:text="周日"
                 android:gravity="center"
                 android:background="@drawable/textview_allline"
+                android:id="@+id/week7"
                 />
 
 

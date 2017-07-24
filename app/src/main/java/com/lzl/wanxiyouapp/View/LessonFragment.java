@@ -1,15 +1,33 @@
 package com.lzl.wanxiyouapp.View;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.graphics.PorterDuff;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lzl.wanxiyouapp.Presenter.LessonPresenter;
+import com.lzl.wanxiyouapp.Presenter.PresenterInterface.ILessonPresenter;
 import com.lzl.wanxiyouapp.R;
 import com.lzl.wanxiyouapp.View.ViewInterface.ILessonFragment;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -19,14 +37,81 @@ import java.util.Map;
  */
 
 public class LessonFragment extends Fragment implements ILessonFragment{
+    View root;
     FrameLayout addLesson_layout;
+    ProgressDialog progressDialog;
+    AlertDialog.Builder errorDialog;
+    ILessonPresenter presenter;
 
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        presenter = new LessonPresenter(this,getContext());
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.lessons_layout,container,false);
+        root = view;
+        initView();
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        presenter.checkHasData();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        int first = calendar.getFirstDayOfWeek();
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        System.out.println("dayOfWeek:"+dayOfWeek+"\t first:"+first);
+        TextView weekView = (TextView)root.findViewById(week[dayOfWeek-first-1]);
+        weekView.getBackground().setColorFilter(ContextCompat.getColor(getContext(),R.color.accent), PorterDuff.Mode.SRC_IN);
+    }
+
+    public void initView()
+    {
+        addLesson_layout = (FrameLayout)root.findViewById(R.id.addLesson_layout);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("请稍后课程表正在加载");
+        progressDialog.setCancelable(false);
+        progressDialog.create();
+        progressDialog.show();
+    }
+
+    @Override
+    public void showErrorDialog(String msg) {
+        errorDialog = new AlertDialog.Builder(getContext());
+        errorDialog.setCancelable(false);
+        errorDialog.setMessage(msg);
+        errorDialog.setPositiveButton("确定",null);
+        errorDialog.setNegativeButton("重试", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                presenter.requestLessonData();
+            }
+        });
+        errorDialog.create().show();
+    }
+
+
+    @Override
+    public void dissmisProgressDialog() {
+        if(progressDialog!=null)
+        {
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
+    }
+
+    @Override
     public void showLessonTable(List<List<Map<String, String>>> lesson_list) {
-
-        List<TextView> textViewList = new LinkedList<>();
-
         if(lesson_list==null)
             return;
         for(int i = 0;i<lesson_list.size();i++)
@@ -37,9 +122,19 @@ public class LessonFragment extends Fragment implements ILessonFragment{
                 Map<String,String> map = mapList.get(j);
                 if(map.get("empty").equals("0"))
                 {
+                    FrameLayout frameLayout = new FrameLayout(getContext());
+                    frameLayout.setBackgroundResource(R.drawable.lesson_card_backgraound);
+                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((1080-getRealPixel(35))/7,getRealPixel(110));
+                    frameLayout.setLayoutParams(params);
+                    frameLayout.setPadding(5,5,5,5);
+
                     TextView textView = new TextView(getContext());
-                    textView.setWidth((1080-getRealPixel(35))/7);
-                    textView.setHeight(getRealPixel(110));
+                    ViewGroup.LayoutParams params1 = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    textView.setLayoutParams(params1);
+                    textView.setGravity(Gravity.CENTER);
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                    textView.setTextColor(ContextCompat.getColor(getContext(),R.color.icons));
+
                     String name = map.get("lesson_name");
                     String time = map.get("lesson_time");
                     String teacher = map.get("lesson_teacher");
@@ -50,20 +145,12 @@ public class LessonFragment extends Fragment implements ILessonFragment{
                     else
                         data = name+"\n"+"@"+teacher;
                     textView.setText(data);
-                    textView.setGravity(Gravity.CENTER);
-                    //textView.setBackgroundResource(R.drawable.textcorner);
-                    //textView.setBackgroundColor(chooseColor());
-                    textView.setBackgroundResource(chooseColor());
-                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((1080-getRealPixel(35))/5,getRealPixel(110));
-                    //layoutParams.leftMargin = (j)*70;
-                    //layoutParams.topMargin = (i)*55;
-                    layoutParams.setMargins(getRealPixel(getRealDP((1080-getRealPixel(35))/5)*j),getRealPixel(i*110),0,0);
-                    //layoutParams.leftMargin = (j-1)*((1080-getRealPixel(35))/5);
-                    //layoutParams.topMargin = (i-1)*getRealPixel(110);
-                    //RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((j-1)*((1080-getRealPixel(35))/7),(i-1)*getRealPixel(55));
-                    addLesson_layout.addView(textView,layoutParams);
-                    textViewList.add(textView);
-                    System.out.println("pix:"+(1080-getRealPixel(35))/5);
+                    textView.setBackgroundResource(R.drawable.lesson_card_backgraound);
+                    textView.getBackground().setColorFilter(ContextCompat.getColor(getContext(),chooseColor()), PorterDuff.Mode.SRC_IN);
+                    FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams((1080-getRealPixel(35))/7,getRealPixel(110));
+                    layoutParams.setMargins(getRealPixel(getRealDP((1080-getRealPixel(35))/7)*j),getRealPixel(i*110),0,0);
+                    frameLayout.addView(textView);
+                    addLesson_layout.addView(frameLayout,layoutParams);
                 }
             }
         }
@@ -86,8 +173,37 @@ public class LessonFragment extends Fragment implements ILessonFragment{
 
     public int chooseColor()
     {
-        int[] color = {R.color.holo_blue_bright,R.color.holo_blue_dark,R.color.holo_blue_light,R.color.holo_red_light,R.color.holo_orange_light,R.color.};
-        int number = (int)(Math.random()*5);
+        int number = (int)(Math.random()*color.length);
         return color[number];
     }
+
+    static int[] color = {
+            R.color.holo_blue_bright,
+            R.color.holo_blue_light,
+            R.color.holo_orange_light,
+            R.color.holo_green_light,
+            R.color.color_1,
+            R.color.color_3,
+            R.color.color_6,
+            R.color.color_9,
+            R.color.color_13,
+            R.color.color_14,
+            R.color.color_15,
+            R.color.color_16,
+            R.color.color_17,
+            R.color.color_18,
+            R.color.color_20,
+            R.color.color_21,
+            R.color.color_22,
+    };
+
+    int week[] = {
+            R.id.week1,
+            R.id.week2,
+            R.id.week3,
+            R.id.week4,
+            R.id.week5,
+            R.id.week6,
+            R.id.week7
+    };
 }

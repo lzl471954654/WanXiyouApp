@@ -14,4 +14,10 @@ public interface IScorePresenter {
     public void onRequestSuccess(Map<String,List<Map<String,String>>> scoreMap);
 
     public void onRequestError(String msg);
+
+    public void checkDataSuccess(Map<String,List<Map<String,String>>> scoreMap);
+
+    public void checkDataError();
+
+    public void checkData();
 }

@@ -42,7 +42,12 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
     IMainMenuPresenter presenter;
     Dialog logonDialog;
     String cookie;
-    Bitmap bitmap;
+
+
+    Fragment tempFragment;
+    ScoreFragment scoreFragment;
+    LessonFragment lessonFragment;
+    ScoreSheet scoreSheet;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,19 +78,55 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
             }
             case R.id.navigation_lesson_sheet:
             {
-                replaceFragment(new EmptyFragment());
+                drawerLayout.closeDrawer(Gravity.START);
+                if(lessonFragment==null)
+                {
+                    lessonFragment = new LessonFragment();
+                    addFragment(lessonFragment,tempFragment);
+                    tempFragment = lessonFragment;
+                }
+                else
+                {
+                    showFragment(lessonFragment,tempFragment);
+                    tempFragment = lessonFragment;
+                }
                 break;
             }
             case R.id.navigation_run:
             {
-                replaceFragment(new EmptyFragment());
+                //replaceFragment(new EmptyFragment());
                 break;
             }
             case R.id.navigation_score:
             {
-                System.out.println("click!");
                 drawerLayout.closeDrawer(Gravity.START);
-                replaceFragment(new ScoreFragment());
+                if(scoreFragment==null)
+                {
+                    scoreFragment = new ScoreFragment();
+                    addFragment(scoreFragment,tempFragment);
+                    tempFragment = scoreFragment;
+                }
+                else
+                {
+                    showFragment(scoreFragment,tempFragment);
+                    tempFragment = scoreFragment;
+                }
+                break;
+            }
+            case R.id.navigation_CJTJ:
+            {
+                drawerLayout.closeDrawer(Gravity.START);
+                if(scoreSheet==null)
+                {
+                    scoreSheet = new ScoreSheet();
+                    addFragment(scoreSheet,tempFragment);
+                    tempFragment = scoreSheet;
+                }
+                else
+                {
+                    showFragment(scoreSheet,tempFragment);
+                    tempFragment = scoreSheet;
+                }
                 break;
             }
         }
@@ -145,7 +186,9 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
 
     public void initFragment()
     {
-        replaceFragment(new EmptyFragment());
+        lessonFragment = new LessonFragment();
+        tempFragment = lessonFragment;
+        addFragment(lessonFragment,null);
     }
 
     @Override
@@ -158,6 +201,23 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_menu_frameLayout,fragment);
         transaction.commit();
+    }
+
+    public void showFragment(Fragment fragment,Fragment hideFragment)
+    {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.hide(hideFragment);
+        transaction.show(fragment);
+        transaction.commitNow();
+    }
+    public void addFragment(Fragment fragment,Fragment hideFragment)
+    {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if(hideFragment!=null)
+            transaction.hide(hideFragment);
+        transaction.add(R.id.main_menu_frameLayout,fragment);
+        transaction.show(fragment);
+        transaction.commitNow();
     }
 
     public void initToolBar()
@@ -191,6 +251,7 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
             Snackbar.make(getCurrentFocus(),student.getName()+"，登录成功",Snackbar.LENGTH_SHORT).show();
             dissmissLoginDialog();
         }
+        initFragment();
     }
 
     @Override

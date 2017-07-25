@@ -48,6 +48,7 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
     ScoreFragment scoreFragment;
     LessonFragment lessonFragment;
     ScoreSheet scoreSheet;
+    StudyPlanFragment studyPlanFragment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,6 +130,22 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
                 }
                 break;
             }
+            case R.id.navigation_plan:
+            {
+                drawerLayout.closeDrawer(Gravity.START);
+                if(studyPlanFragment==null)
+                {
+                    studyPlanFragment = new StudyPlanFragment();
+                    addFragment(studyPlanFragment,tempFragment);
+                    tempFragment = studyPlanFragment;
+                }
+                else
+                {
+                    showFragment(studyPlanFragment,tempFragment);
+                    tempFragment = studyPlanFragment;
+                }
+                break;
+            }
         }
 
         return true;
@@ -167,7 +184,7 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
                     Snackbar.make(button,"用户名，密码，验证码不能为空",Snackbar.LENGTH_SHORT).show();
             }
         });
-        logonDialog.setCancelable(false);
+        logonDialog.setCancelable(true);
         logonDialog.create();
         logonDialog.show();
         presenter.getScretImage();

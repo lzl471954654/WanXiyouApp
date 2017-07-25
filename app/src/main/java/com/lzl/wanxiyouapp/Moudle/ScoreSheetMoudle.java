@@ -52,6 +52,11 @@ public class ScoreSheetMoudle implements IScoreSheetMoudle {
     @Override
     public void requestSheetData() {
         Student student = MyApplication.student;
+        if(student==null)
+        {
+            presenter.onRequestError("对不起您还没有登录，或验证信息已过期。");
+            return;
+        }
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10,TimeUnit.SECONDS)

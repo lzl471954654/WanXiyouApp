@@ -19,4 +19,5 @@ public class MyApplication extends Application {
     public static Map<String,List<Map<String,String>>> scoresMap;
     public static List<List<Map<String,String>>> leesonList;
     public static List<List<String>> responseData;
+    public static List<List<Map<String,String>>> planList;
 }

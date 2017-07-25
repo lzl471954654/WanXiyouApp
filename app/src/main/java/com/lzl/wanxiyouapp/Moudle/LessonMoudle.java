@@ -52,6 +52,11 @@ public class LessonMoudle implements ILessonMoudle {
     @Override
     public void requestLessonData() {
         Student student = MyApplication.student;
+        if(student==null)
+        {
+            presenter.onRequestError("对不起您还没有登录，或验证信息已过期。");
+            return;
+        }
         String url = MyApplication.url+"WanXiyou/edu/getLessonList";
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)

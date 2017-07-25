@@ -5,6 +5,7 @@ import android.content.Context;
 import com.lzl.wanxiyouapp.Moudle.MoudleInterface.ILessonMoudle;
 import com.lzl.wanxiyouapp.Moudle.LessonMoudle;
 import com.lzl.wanxiyouapp.Presenter.PresenterInterface.ILessonPresenter;
+import com.lzl.wanxiyouapp.R;
 import com.lzl.wanxiyouapp.View.ViewInterface.ILessonFragment;
 
 import java.util.List;

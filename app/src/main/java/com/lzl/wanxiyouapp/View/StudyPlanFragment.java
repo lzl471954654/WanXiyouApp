@@ -26,7 +26,7 @@ import java.util.Stack;
  * Created by LZL on 2017/7/25.
  */
 
-public class StudyPlanFragment extends Fragment implements IStudyPlanFragment{
+public class StudyPlanFragment extends Fragment implements IStudyPlanFragment,CardStackView.ItemExpendListener{
     ProgressDialog progressDialog;
     AlertDialog.Builder errorDialog;
     CardStackView cardStackView;
@@ -86,6 +86,12 @@ public class StudyPlanFragment extends Fragment implements IStudyPlanFragment{
         ScoresCardStackAdapter adapter = new ScoresCardStackAdapter(getContext());
         adapter.updateData(Arrays.asList(color),data);
         cardStackView.setAdapter(adapter);
+        cardStackView.setItemExpendListener(this);
+    }
+
+    @Override
+    public void onItemExpend(boolean expend) {
+
     }
 
     @Override
@@ -103,7 +109,7 @@ public class StudyPlanFragment extends Fragment implements IStudyPlanFragment{
         errorDialog.create().show();
     }
 
-    static int[] color = {
+    static Integer[] color = {
             R.color.holo_blue_bright,
             R.color.holo_blue_light,
             R.color.holo_orange_light,

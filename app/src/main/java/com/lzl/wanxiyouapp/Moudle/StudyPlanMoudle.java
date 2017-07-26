@@ -84,7 +84,7 @@ public class StudyPlanMoudle implements IStudyMoudle {
                     });
                     return;
                 }
-                if(json!=null&&json.equals("1"))
+                if(json!=null&&json.equals("0"))
                 {
                     String s = response.body().string();
                     try {

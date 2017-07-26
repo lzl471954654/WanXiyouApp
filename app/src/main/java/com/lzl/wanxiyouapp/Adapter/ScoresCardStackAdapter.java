@@ -122,7 +122,7 @@ public class ScoresCardStackAdapter extends StackAdapter<Integer> {
             String[] number =  {"一","二","三","四","五","六","七","八"};
             cardTitle.getBackground().setColorFilter(ContextCompat.getColor(getContext(),backgroundColorId), PorterDuff.Mode.SRC_IN);
             titleText.setText("第"+number[position]+"学期");
-            ScoresListAdapter adapter = new ScoresListAdapter(scoreMap,PLAN_MODE);
+            ScoresListAdapter adapter = new ScoresListAdapter(scoreMap.get(position),PLAN_MODE);
             scoreList.setLayoutManager(new LinearLayoutManager(getContext()));
             scoreList.setAdapter(adapter);
             System.out.println("holder onBind");

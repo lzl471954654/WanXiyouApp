@@ -17,15 +17,15 @@ import java.util.Map;
 
 public class ScoresListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<Map<String,String>> scores_list;
-    List<List<Map<String,String>>> planList;
+    List<Map<String,String>> planList;
     public static final int SCORES_MODE = 1;
     public static final int PLAN_MDOE = 2;
     int Mode = SCORES_MODE;
 
 
-    public ScoresListAdapter(List<List<Map<String,String>>> planList,int Mode)
+    public ScoresListAdapter(List<Map<String,String>> planList,int Mode)
     {
-        Mode = PLAN_MDOE;
+        this.Mode = PLAN_MDOE;
         this.planList = planList;
     }
 
@@ -92,9 +92,9 @@ public class ScoresListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public void onBind(int position,List<Map<String,String>> scores_list)
         {
             this.name.setText(scores_list.get(position).get("课程名称"));
-            this.high_scores.setText("课程代码："+scores_list.get(position).get("课程代码"));
+            this.credit.setText("课程代码："+scores_list.get(position).get("课程代码"));
             this.type.setText("学分："+scores_list.get(position).get("学分"));
-            this.credit.setText("周学时："+scores_list.get(position).get("周学时"));
+            this.high_scores.setText("周学时："+scores_list.get(position).get("周学时"));
             this.middle_scores.setText("考核方式："+scores_list.get(position).get("考核方式"));
             this.final_scores.setText("课程性质："+scores_list.get(position).get("课程性质"));
             this.daily_scores.setText("起始结束周："+scores_list.get(position).get("起始结束周"));
@@ -109,7 +109,7 @@ public class ScoresListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
         else if(Mode==PLAN_MDOE)
         {
-            ((PlanViewHolder)holder).onBind(position,planList.get(position));
+            ((PlanViewHolder)holder).onBind(position,planList);
         }
     }
 

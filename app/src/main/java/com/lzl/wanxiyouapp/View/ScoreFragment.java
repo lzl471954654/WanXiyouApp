@@ -30,14 +30,23 @@ public class ScoreFragment extends Fragment implements IScoresFragmen,CardStackV
     CardStackView cardStackView;
     ProgressDialog progressDialog;
     Integer[] color = {
-            R.color.primary_dark,
+            R.color.holo_blue_bright,
+            R.color.holo_blue_light,
             R.color.holo_orange_light,
-            R.color.holo_purple,
-            R.color.holo_red_dark,
-            R.color.primary_dark,
-            R.color.holo_orange_light,
-            R.color.holo_purple,
-            R.color.holo_red_dark
+            R.color.holo_green_light,
+            R.color.color_1,
+            R.color.color_3,
+            R.color.color_6,
+            R.color.color_9,
+            R.color.color_13,
+            R.color.color_14,
+            R.color.color_15,
+            R.color.color_16,
+            R.color.color_17,
+            R.color.color_18,
+            R.color.color_20,
+            R.color.color_21,
+            R.color.color_22,
     };
     @Nullable
     @Override

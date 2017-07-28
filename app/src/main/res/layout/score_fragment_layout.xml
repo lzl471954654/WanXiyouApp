@@ -11,6 +11,8 @@
         android:layout_height="match_parent"
         android:id="@+id/scores_cardStackView"
         android:layout_margin="16dp"
+        android:layout_gravity="center"
+        android:gravity="center"
         >
 
 

@@ -19,7 +19,7 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_gravity="center_horizontal"
         android:divider="@drawable/sheet_divider"
@@ -218,5 +218,92 @@
                 />
         </TableRow>
     </TableLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="8dp"
+        android:layout_marginBottom="48dp"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:id="@+id/score_sheet_baseLine"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="必修课"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            />
+        <View
+            android:layout_width="16dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="1dp"
+            android:layout_alignBottom="@id/score_sheet_baseLine"
+            android:background="@color/primary_light"
+            android:layout_marginStart="16dp"
+            android:id="@+id/sheet_bixiu_1"
+            />
+        <View
+            style="@style/chartView"
+            android:background="@color/accent"
+            android:layout_toRightOf="@id/sheet_bixiu_1"
+            android:layout_marginStart="16dp"
+            android:id="@+id/sheet_bixiu_2"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选修课"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/sheet_xuanxiu_text"
+            />
+        <View
+            style="@style/chartView"
+            android:layout_alignStart="@id/sheet_xuanxiu_text"
+            android:id="@+id/sheet_xuanxiu_1"
+            />
+        <View
+            style="@style/chartView"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/sheet_xuanxiu_1"
+            android:layout_marginStart="16dp"
+            android:id="@+id/sheet_xuanxiu_2"
+            android:background="@color/accent"
+            />
+        <View
+            style="@style/chartView"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="48dp"
+            android:id="@+id/sheet_other1"
+            />
+        <View
+            style="@style/chartView"
+            android:layout_alignParentEnd="true"
+            android:background="@color/accent"
+            android:id="@+id/sheet_other2"
+            android:layout_marginEnd="16dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="其他"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="32dp"
+            android:id="@+id/sheet_other_text"
+            />
+
+    </RelativeLayout>
 
 </LinearLayout>

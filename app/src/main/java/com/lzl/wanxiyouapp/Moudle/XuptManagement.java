@@ -7,6 +7,7 @@ import android.os.Handler;
 
 import com.lzl.wanxiyouapp.Bean.Student;
 import com.lzl.wanxiyouapp.Moudle.MoudleInterface.IXuptManagement;
+import com.lzl.wanxiyouapp.MyApplication;
 import com.lzl.wanxiyouapp.Presenter.PresenterInterface.IMainMenuPresenter;
 
 import org.json.JSONException;
@@ -36,6 +37,29 @@ public class XuptManagement implements IXuptManagement {
     public XuptManagement(IMainMenuPresenter presenter,Context context) {
         this.presenter = presenter;
         handler = new Handler(context.getMainLooper());
+    }
+
+    @Override
+    public boolean checkPeEnable() {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://yddx.boxkj.com/wx/login")
+                .get()
+                .build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MyApplication.peEnable = false;
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.code()==200)
+                    MyApplication.peEnable = true;
+            }
+        });
+        return MyApplication.peEnable;
     }
 
     @Override
@@ -120,10 +144,10 @@ public class XuptManagement implements IXuptManagement {
     public void userLogon(String id, final String password, String code, String cookie) {
         OkHttpClient okHttpClient = new OkHttpClient();
         FormBody formBody = new FormBody.Builder()
-                .add("username",id)
+                .add("xh",id)
                 .add("password",password)
                 .add("code",code)
-                .add("Set-Cookie",cookie)
+                .add("cookie",cookie)
                 .build();
         Request request = new Request.Builder()
                 .url(url+"WanXiyou/edu/login")
@@ -210,7 +234,7 @@ public class XuptManagement implements IXuptManagement {
     public void loadScretImage() {
         OkHttpClient okHttpClient = new OkHttpClient();
         Request.Builder builder = new Request.Builder();
-        builder.url("http://139.199.20.248:8080/WanXiyou/GetScretImage")
+        builder.url("http://139.199.20.248:8080/WanXiyou/edu/GetScretImage")
                 .get();
         Call call = okHttpClient.newCall(builder.build());
         call.enqueue(new Callback() {

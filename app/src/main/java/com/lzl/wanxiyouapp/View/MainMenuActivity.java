@@ -10,8 +10,10 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -45,10 +47,9 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
 
 
     Fragment tempFragment;
-    ScoreFragment scoreFragment;
-    LessonFragment lessonFragment;
-    ScoreSheet scoreSheet;
-    StudyPlanFragment studyPlanFragment;
+    LibFragment libFragment;
+    EducationFragment educationFragment;
+    Pefragment peFragment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +65,8 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
         navigationView.setNavigationItemSelectedListener(this);
         if(presenter.wasFirstLogin())
             presenter.showLogonDialog();
+        presenter.checkPeEnable();
+        toolbar.setTitleTextColor(ContextCompat.getColor(this,R.color.icons));
     }
 
     @Override
@@ -77,73 +80,66 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
                     drawerLayout.openDrawer(Gravity.START);
                 break;
             }
-            case R.id.navigation_lesson_sheet:
+            case R.id.navigation_lib:
             {
                 drawerLayout.closeDrawer(Gravity.START);
-                if(lessonFragment==null)
+                if(libFragment==null)
                 {
-                    lessonFragment = new LessonFragment();
-                    addFragment(lessonFragment,tempFragment);
-                    tempFragment = lessonFragment;
+                    libFragment = new LibFragment();
+                    addFragment(libFragment,tempFragment);
+                    tempFragment = libFragment;
                 }
                 else
                 {
-                    showFragment(lessonFragment,tempFragment);
-                    tempFragment = lessonFragment;
+                    showFragment(libFragment,tempFragment);
+                    tempFragment = libFragment;
+                }
+                break;
+            }
+            case R.id.navigation_pe:
+            {
+                if(!presenter.checkPeEnable())
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage("对不起选课系统暂时关闭无法进入。");
+                    builder.setCancelable(true);
+                    builder.setNegativeButton("确定",null);
+                    builder.create().show();
+                    break;
+                }
+                drawerLayout.closeDrawer(Gravity.START);
+                if(peFragment==null)
+                {
+                    peFragment = new Pefragment();
+                    addFragment(peFragment,tempFragment);
+                    tempFragment = peFragment;
+                }
+                else
+                {
+                    showFragment(peFragment,tempFragment);
+                    tempFragment = peFragment;
+                }
+                break;
+            }
+            case R.id.navigation_edu:
+            {
+                drawerLayout.closeDrawer(Gravity.START);
+                if(educationFragment==null)
+                {
+                    educationFragment = new EducationFragment();
+                    addFragment(educationFragment,tempFragment);
+                    tempFragment = educationFragment;
+                }
+                else
+                {
+                    showFragment(educationFragment,tempFragment);
+                    tempFragment = educationFragment;
                 }
                 break;
             }
             case R.id.navigation_run:
             {
                 //replaceFragment(new EmptyFragment());
-                break;
-            }
-            case R.id.navigation_score:
-            {
-                drawerLayout.closeDrawer(Gravity.START);
-                if(scoreFragment==null)
-                {
-                    scoreFragment = new ScoreFragment();
-                    addFragment(scoreFragment,tempFragment);
-                    tempFragment = scoreFragment;
-                }
-                else
-                {
-                    showFragment(scoreFragment,tempFragment);
-                    tempFragment = scoreFragment;
-                }
-                break;
-            }
-            case R.id.navigation_CJTJ:
-            {
-                drawerLayout.closeDrawer(Gravity.START);
-                if(scoreSheet==null)
-                {
-                    scoreSheet = new ScoreSheet();
-                    addFragment(scoreSheet,tempFragment);
-                    tempFragment = scoreSheet;
-                }
-                else
-                {
-                    showFragment(scoreSheet,tempFragment);
-                    tempFragment = scoreSheet;
-                }
-                break;
-            }
-            case R.id.navigation_plan:
-            {
-                drawerLayout.closeDrawer(Gravity.START);
-                if(studyPlanFragment==null)
-                {
-                    studyPlanFragment = new StudyPlanFragment();
-                    addFragment(studyPlanFragment,tempFragment);
-                    tempFragment = studyPlanFragment;
-                }
-                else
-                {
-                    showFragment(studyPlanFragment,tempFragment);
-                    tempFragment = studyPlanFragment;
-                }
                 break;
             }
         }
@@ -203,9 +199,10 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
 
     public void initFragment()
     {
-        lessonFragment = new LessonFragment();
-        tempFragment = lessonFragment;
-        addFragment(lessonFragment,null);
+        //lessonFragment = new EducationFragment();
+        tempFragment = new EducationFragment();
+        //addFragment(lessonFragment,null);
+        replaceFragment(tempFragment);
     }
 
     @Override
@@ -286,4 +283,5 @@ public class MainMenuActivity extends AppCompatActivity implements IMainMenuView
         * 快速登陆接口 无验证码登陆
         * */
     }
+
 }

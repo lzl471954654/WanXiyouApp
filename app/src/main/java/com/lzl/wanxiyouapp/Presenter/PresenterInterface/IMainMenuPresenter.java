@@ -33,4 +33,6 @@ public interface IMainMenuPresenter {
 
     public void setManagement(IXuptManagement management);
 
+    public boolean checkPeEnable();
+
 }

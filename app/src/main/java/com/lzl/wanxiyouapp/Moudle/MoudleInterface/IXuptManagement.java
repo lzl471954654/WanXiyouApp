@@ -15,6 +15,7 @@ public interface IXuptManagement {
 
     public void userLogon(String id,String password,String code,String cookie);
 
+    public boolean checkPeEnable();
 
     public void loadScretImage();
 }

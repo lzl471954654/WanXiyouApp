@@ -4,8 +4,8 @@
     android:layout_height="120dp"
     app:cardElevation="3dp"
     app:cardCornerRadius="5dp"
-    android:layout_margin="5dp"
     android:clickable="true"
+    android:layout_margin="4dp"
     android:foreground="?android:attr/selectableItemBackground"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,8 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginStart="60dp"
-            android:textSize="15sp"
+            android:layout_marginStart="54dp"
+            android:textSize="16sp"
             android:text="数据结构"
             android:textColor="@color/primary_text"
             android:maxLines="1"
@@ -57,9 +57,10 @@
         <TextView
             android:text="学分：4"
             style="@style/scores_item_style"
-            android:layout_alignParentEnd="true"
             android:layout_alignBottom="@id/scores_lesson_score"
-            android:layout_marginEnd="70dp"
+            android:layout_alignParentEnd="true"
+            android:maxLines="1"
+            android:layout_marginEnd="56dp"
             android:id="@+id/scores_lesson_xf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -84,7 +85,7 @@
             android:layout_height="18dp"
             android:src="@mipmap/book"
             android:layout_alignTop="@id/scores_lesson_name"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="16dp"
             />
 
     </RelativeLayout>

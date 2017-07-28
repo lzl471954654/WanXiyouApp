@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.design.widget.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_menu_tabLayout"
+        app:tabTextColor="@color/primary_dark"
+        app:tabSelectedTextColor="@color/accent"
+        >
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的课表"
+            android:id="@+id/my_lessonTable"
+            />
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的成绩"
+            android:id="@+id/my_score"
+            />
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="培养计划"
+            android:id="@+id/my_studyPlan"
+            />
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="学分统计"
+            android:id="@+id/my_scoresStatistics"
+            />
+
+    </android.support.design.widget.TabLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_menu_viewpager"
+            >
+
+        </android.support.v4.view.ViewPager>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/refresh"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="32dp"
+            android:tintMode="src_in"
+            android:tint="#ffffff"
+            android:id="@+id/edu_refresh_button"
+            />
+
+    </FrameLayout>
+
+
+</LinearLayout>

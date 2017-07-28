@@ -33,6 +33,55 @@
             app:headerLayout="@layout/navigation_header"
             android:id="@+id/navigationView"
             >
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:id="@+id/main_onSettings"
+                android:layout_margin="16dp"
+                >
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/settings"
+                    android:id="@+id/image_settings"
+                    android:tintMode="src_in"
+                    android:tint="#727272"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="设置"
+                    android:layout_toRightOf="@id/image_settings"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="4dp"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="16dp"
+                android:id="@+id/main_onExit"
+                >
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/exit"
+                    android:id="@+id/image_exit"
+                    android:tintMode="src_in"
+                    android:tint="#727272"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="退出"
+                    android:layout_toRightOf="@id/image_exit"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="4dp"
+                    />
+            </RelativeLayout>
 
         </android.support.design.widget.NavigationView>
 

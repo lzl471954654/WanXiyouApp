@@ -1,51 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:title="教务系统">
-        <menu>
-            <item
-                android:title="我的课表"
-                android:icon="@mipmap/sheet"
-                android:id="@+id/navigation_lesson_sheet"
-                />
-            <item
-                android:title="我的成绩"
-                android:icon="@mipmap/pen"
-                android:id="@+id/navigation_score"/>
-            <item
-                android:title="成绩统计"
-                android:icon="@mipmap/tongji"
-                android:id="@+id/navigation_CJTJ"
-                />
-            <item
-                android:icon="@mipmap/school"
-                android:title="培养计划"
-                android:id="@+id/navigation_plan"/>
-        </menu>
-    </item>
-
-    <item
-        android:title="智慧教室"
-        >
-        <menu>
-            <item
-                android:icon="@mipmap/kaoqin"
-                android:title="考勤信息"
-
-                android:id="@+id/navigation_KQXX"
-                />
-        </menu>
-    </item>
-
-    <item
-        android:title="跑步"
-        android:icon="@mipmap/run"
-        android:id="@+id/navigation_run"
-        />
-    <item
+        <item
+            android:icon="@mipmap/school"
+            android:title="教务信息"
+            android:id="@+id/navigation_edu"
+            />
+        <item
+            android:icon="@mipmap/kaoqin"
+            android:title="考勤信息"
+            android:id="@+id/navigation_KQXX"
+            />
+        <item
+            android:title="体育选课"
+            android:icon="@mipmap/sheet"
+            android:id="@+id/navigation_pe"
+            />
+        <item
         android:title="图书馆"
         android:icon="@mipmap/lib"
         android:id="@+id/navigation_lib"
         />
+        <item
+            android:title="跑步"
+            android:icon="@mipmap/run"
+            android:id="@+id/navigation_run"
+            />
+
+
 </menu>

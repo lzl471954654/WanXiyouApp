@@ -25,6 +25,7 @@ import com.lzl.wanxiyouapp.Presenter.LessonPresenter;
 import com.lzl.wanxiyouapp.Presenter.PresenterInterface.ILessonPresenter;
 import com.lzl.wanxiyouapp.R;
 import com.lzl.wanxiyouapp.View.ViewInterface.ILessonFragment;
+import com.lzl.wanxiyouapp.View.ViewInterface.ViewUpdateInterface;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -36,7 +37,7 @@ import java.util.Map;
  * Created by LZL on 2017/7/22.
  */
 
-public class LessonFragment extends Fragment implements ILessonFragment{
+public class LessonFragment extends Fragment implements ILessonFragment,ViewUpdateInterface{
     View root;
     FrameLayout addLesson_layout;
     ProgressDialog progressDialog;
@@ -71,6 +72,12 @@ public class LessonFragment extends Fragment implements ILessonFragment{
         weekView.getBackground().setColorFilter(ContextCompat.getColor(getContext(),R.color.accent), PorterDuff.Mode.SRC_IN);
     }
 
+    @Override
+    public void updateView() {
+        addLesson_layout.removeAllViews();
+        presenter.checkHasData();
+    }
+
     public void initView()
     {
         addLesson_layout = (FrameLayout)root.findViewById(R.id.addLesson_layout);
@@ -88,7 +95,7 @@ public class LessonFragment extends Fragment implements ILessonFragment{
     @Override
     public void showErrorDialog(String msg) {
         errorDialog = new AlertDialog.Builder(getContext());
-        errorDialog.setCancelable(false);
+        errorDialog.setCancelable(true);
         errorDialog.setMessage(msg);
         errorDialog.setPositiveButton("确定",null);
         errorDialog.setNegativeButton("重试", new DialogInterface.OnClickListener() {
@@ -135,16 +142,9 @@ public class LessonFragment extends Fragment implements ILessonFragment{
                     textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
                     textView.setTextColor(ContextCompat.getColor(getContext(),R.color.icons));
 
-                    String name = map.get("lesson_name");
-                    String time = map.get("lesson_time");
-                    String teacher = map.get("lesson_teacher");
-                    String place = map.get("lesson_place");
-                    String data = "";
-                    if(place!=null)
-                        data = name+"\n"+"@"+teacher+"\n"+place;
-                    else
-                        data = name+"\n"+"@"+teacher;
-                    textView.setText(data);
+                    String lessonData = map.get("lesson");
+                    lessonData = checkSame(lessonData);
+                    textView.setText(lessonData);
                     textView.setBackgroundResource(R.drawable.lesson_card_backgraound);
                     textView.getBackground().setColorFilter(ContextCompat.getColor(getContext(),chooseColor()), PorterDuff.Mode.SRC_IN);
                     FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams((1080-getRealPixel(35))/7,getRealPixel(110));
@@ -154,6 +154,18 @@ public class LessonFragment extends Fragment implements ILessonFragment{
                 }
             }
         }
+    }
+
+    public String checkSame(String s)
+    {
+        String pre = s.substring(0,s.length()/2);
+        String back = s.substring(s.length()/2,s.length());
+        pre = pre.substring(0,2);
+        back = back.substring(0,2);
+        if(pre.equals(back))
+            return s.substring(0,s.length()/2);
+        else
+            return s;
     }
 
     public int getRealPixel(int dp)

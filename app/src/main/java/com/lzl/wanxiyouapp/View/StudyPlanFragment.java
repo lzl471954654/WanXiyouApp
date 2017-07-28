@@ -4,11 +4,14 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.RotateAnimation;
 
 import com.loopeer.cardstack.CardStackView;
 import com.lzl.wanxiyouapp.Adapter.ScoresCardStackAdapter;
@@ -16,6 +19,7 @@ import com.lzl.wanxiyouapp.Presenter.PresenterInterface.IStudyPlanPresenter;
 import com.lzl.wanxiyouapp.Presenter.StudyPlanFragmentPresenter;
 import com.lzl.wanxiyouapp.R;
 import com.lzl.wanxiyouapp.View.ViewInterface.IStudyPlanFragment;
+import com.lzl.wanxiyouapp.View.ViewInterface.ViewUpdateInterface;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +30,7 @@ import java.util.Stack;
  * Created by LZL on 2017/7/25.
  */
 
-public class StudyPlanFragment extends Fragment implements IStudyPlanFragment,CardStackView.ItemExpendListener{
+public class StudyPlanFragment extends Fragment implements IStudyPlanFragment,CardStackView.ItemExpendListener,ViewUpdateInterface{
     ProgressDialog progressDialog;
     AlertDialog.Builder errorDialog;
     CardStackView cardStackView;
@@ -53,8 +57,16 @@ public class StudyPlanFragment extends Fragment implements IStudyPlanFragment,Ca
         cardStackView = (CardStackView)root.findViewById(R.id.plan_cardStackView);
     }
 
+
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        presenter.checkData();
+    }
+
+    @Override
+    public void updateView() {
+        cardStackView.removeAllViews();
         presenter.checkData();
     }
 
@@ -67,7 +79,7 @@ public class StudyPlanFragment extends Fragment implements IStudyPlanFragment,Ca
     public void showProgressDialog() {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("请稍后正在加载");
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
         progressDialog.create();
         progressDialog.show();
     }

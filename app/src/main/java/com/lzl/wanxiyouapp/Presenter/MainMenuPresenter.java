@@ -70,6 +70,11 @@ public class MainMenuPresenter implements IMainMenuPresenter {
     }
 
     @Override
+    public boolean checkPeEnable() {
+        return management.checkPeEnable();
+    }
+
+    @Override
     public void login(String id, String password, String code, String cookie) {
         management.userLogon(id,password,code,cookie);
     }

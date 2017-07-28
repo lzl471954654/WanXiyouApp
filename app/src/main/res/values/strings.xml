@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">玩西邮</string>
 
-    <string name="user_normal_name">刘智林</string>
+    <string name="user_normal_name">登陆</string>
 
     <string name="dawer_open">open</string>
     <string name="dawer_close">close</string>

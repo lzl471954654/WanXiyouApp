@@ -93,6 +93,7 @@
             android:layout_width="72dp"
             android:layout_height="38dp"
             android:text="登录"
+            android:textColor="@color/icons"
             android:layout_marginEnd="11dp"
             android:foreground="?attr/selectableItemBackground"
             android:layout_below="@+id/login_scret_layout"

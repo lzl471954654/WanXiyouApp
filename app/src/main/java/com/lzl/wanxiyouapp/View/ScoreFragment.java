@@ -31,24 +31,15 @@ public class ScoreFragment extends Fragment implements IScoresFragmen,CardStackV
     ScoresMoudle moudle;
     CardStackView cardStackView;
     ProgressDialog progressDialog;
-    Integer[] color = {
-            R.color.holo_blue_bright,
-            R.color.holo_blue_light,
-            R.color.holo_orange_light,
-            R.color.holo_green_light,
-            R.color.color_1,
-            R.color.color_3,
-            R.color.color_6,
-            R.color.color_9,
-            R.color.color_13,
-            R.color.color_14,
-            R.color.color_15,
-            R.color.color_16,
-            R.color.color_17,
-            R.color.color_18,
-            R.color.color_20,
-            R.color.color_21,
-            R.color.color_22,
+    static Integer[] color = {
+            R.color.colorList_1,
+            R.color.colorList_2,
+            R.color.colorList_3,
+            R.color.colorList_4,
+            R.color.colorList_5,
+            R.color.colorList_6,
+            R.color.colorList_7,
+            R.color.colorList_8,
     };
     @Nullable
     @Override
@@ -74,7 +65,6 @@ public class ScoreFragment extends Fragment implements IScoresFragmen,CardStackV
     public void updateView() {
         System.out.println("updateview");
         cardStackView.removeAllViews();
-        showProgressDialog();
         //cardStackView.setAdapter(null);
         presenter.checkData();
     }
@@ -82,10 +72,6 @@ public class ScoreFragment extends Fragment implements IScoresFragmen,CardStackV
     public void initView()
     {
         cardStackView = (CardStackView)root.findViewById(R.id.scores_cardStackView);
-    }
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        cardStackView.setItemExpendListener(this);
         presenter.requestScoresList();
     }
 
@@ -96,17 +82,16 @@ public class ScoreFragment extends Fragment implements IScoresFragmen,CardStackV
 
     @Override
     public void refreshLayout(Map<String, List<Map<String, String>>> scoreMap) {
-        cardStackView.removeAllViews();
         ScoresCardStackAdapter adapter = new ScoresCardStackAdapter(getContext());
         adapter.updateData(Arrays.asList(color),scoreMap);
         cardStackView.setAdapter(adapter);
-
+        cardStackView.setItemExpendListener(this);
     }
 
     @Override
     public void showProgressDialog() {
         progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("请稍后正在努力加载课表数据");
+        progressDialog.setMessage("请稍后正在努力加载成绩数据");
         progressDialog.setCancelable(true);
         progressDialog.create();
         progressDialog.show();

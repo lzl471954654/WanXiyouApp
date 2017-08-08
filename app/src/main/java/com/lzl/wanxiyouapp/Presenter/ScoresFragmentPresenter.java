@@ -26,7 +26,6 @@ public class ScoresFragmentPresenter implements IScorePresenter {
 
     @Override
     public void checkDataError() {
-        fragmen.showProgressDialog();
         moudle.requestScoresList();
     }
 
@@ -74,8 +73,9 @@ public class ScoresFragmentPresenter implements IScorePresenter {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                fragmen.refreshLayout(scoreMap);
                 fragmen.dissmisProgressDialog();
+                fragmen.refreshLayout(scoreMap);
+
             }
         });
     }

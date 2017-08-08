@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 25
@@ -35,4 +37,14 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:8.7.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    compile "org.jetbrains.anko:anko-sdk15:0.9.1" // So here it's 15 too
+    compile "org.jetbrains.anko:anko-appcompat-v7:0.9.1"
+    compile "org.jetbrains.anko:anko-design:0.9.1"
+    compile "org.jetbrains.anko:anko-recyclerview-v7:0.9.1"
+
+}
+repositories {
+    mavenCentral()
 }

@@ -122,22 +122,13 @@ public class StudyPlanFragment extends Fragment implements IStudyPlanFragment,Ca
     }
 
     static Integer[] color = {
-            R.color.holo_blue_bright,
-            R.color.holo_blue_light,
-            R.color.holo_orange_light,
-            R.color.holo_green_light,
-            R.color.color_1,
-            R.color.color_3,
-            R.color.color_6,
-            R.color.color_9,
-            R.color.color_13,
-            R.color.color_14,
-            R.color.color_15,
-            R.color.color_16,
-            R.color.color_17,
-            R.color.color_18,
-            R.color.color_20,
-            R.color.color_21,
-            R.color.color_22,
+            R.color.colorList_1,
+            R.color.colorList_2,
+            R.color.colorList_3,
+            R.color.colorList_4,
+            R.color.colorList_5,
+            R.color.colorList_6,
+            R.color.colorList_7,
+            R.color.colorList_8,
     };
 }

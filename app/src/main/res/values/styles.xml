@@ -32,4 +32,6 @@
         <item name="background">@color/accent</item>
     </style>
 
+    <dimen name="logon_margin">64dp</dimen>
+
 </resources>

@@ -65,4 +65,14 @@
     <color name="color_21">#FF9800</color>
     <color name="color_22">#FF5722</color>
 
+    <color name="colorList_1">#66B2C2</color>
+    <color name="colorList_2">#6FBFCA</color>
+    <color name="colorList_3">#7FC1C0</color>
+    <color name="colorList_4">#93C2B8</color>
+    <color name="colorList_5">#A7C5AD</color>
+    <color name="colorList_6">#CBC797</color>
+    <color name="colorList_7">#FFC15C</color>
+    <color name="colorList_8">#FFB437</color>
+
+
 </resources>

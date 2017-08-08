@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:src="@mipmap/refresh"
             android:layout_gravity="bottom|end"
-            android:layout_margin="32dp"
+            android:layout_margin="16dp"
             android:tintMode="src_in"
             android:tint="#ffffff"
             android:id="@+id/edu_refresh_button"

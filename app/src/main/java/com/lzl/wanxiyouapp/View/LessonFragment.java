@@ -68,7 +68,10 @@ public class LessonFragment extends Fragment implements ILessonFragment,ViewUpda
         int first = calendar.getFirstDayOfWeek();
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         System.out.println("dayOfWeek:"+dayOfWeek+"\t first:"+first);
-        TextView weekView = (TextView)root.findViewById(week[dayOfWeek-first-1]);
+        int day = dayOfWeek-first-1;
+        if(day<0)
+            day = 0;
+        TextView weekView = (TextView)root.findViewById(week[day]);
         weekView.getBackground().setColorFilter(ContextCompat.getColor(getContext(),R.color.accent), PorterDuff.Mode.SRC_IN);
     }
 
@@ -129,7 +132,7 @@ public class LessonFragment extends Fragment implements ILessonFragment,ViewUpda
                 Map<String,String> map = mapList.get(j);
                 if(map.get("empty").equals("0"))
                 {
-                    FrameLayout frameLayout = new FrameLayout(getContext());
+                    FrameLayout frameLayout = new FrameLayout(getActivity());
                     frameLayout.setBackgroundResource(R.drawable.lesson_card_backgraound);
                     FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((1080-getRealPixel(35))/7,getRealPixel(110));
                     frameLayout.setLayoutParams(params);

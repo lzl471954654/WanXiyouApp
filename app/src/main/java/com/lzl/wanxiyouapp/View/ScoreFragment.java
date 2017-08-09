@@ -1,6 +1,7 @@
 package com.lzl.wanxiyouapp.View;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,8 @@ import com.lzl.wanxiyouapp.Presenter.ScoresFragmentPresenter;
 import com.lzl.wanxiyouapp.R;
 import com.lzl.wanxiyouapp.View.ViewInterface.IScoresFragmen;
 import com.lzl.wanxiyouapp.View.ViewInterface.ViewUpdateInterface;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +44,15 @@ public class ScoreFragment extends Fragment implements IScoresFragmen,CardStackV
             R.color.colorList_7,
             R.color.colorList_8,
     };
+    Context mContext;
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,6 +65,7 @@ public class ScoreFragment extends Fragment implements IScoresFragmen,CardStackV
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //EventBus.getDefault().register(this);
         presenter = new ScoresFragmentPresenter(getContext());
         moudle  = new ScoresMoudle();
         moudle.setPresenter(presenter);
@@ -82,7 +95,7 @@ public class ScoreFragment extends Fragment implements IScoresFragmen,CardStackV
 
     @Override
     public void refreshLayout(Map<String, List<Map<String, String>>> scoreMap) {
-        ScoresCardStackAdapter adapter = new ScoresCardStackAdapter(getContext());
+        ScoresCardStackAdapter adapter = new ScoresCardStackAdapter(mContext);
         adapter.updateData(Arrays.asList(color),scoreMap);
         cardStackView.setAdapter(adapter);
         cardStackView.setItemExpendListener(this);
@@ -90,7 +103,7 @@ public class ScoreFragment extends Fragment implements IScoresFragmen,CardStackV
 
     @Override
     public void showProgressDialog() {
-        progressDialog = new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("请稍后正在努力加载成绩数据");
         progressDialog.setCancelable(true);
         progressDialog.create();
@@ -108,11 +121,16 @@ public class ScoreFragment extends Fragment implements IScoresFragmen,CardStackV
 
     @Override
     public void showRequestErrorMsg(String msg) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setMessage(msg);
         builder.setTitle("请求出错啦");
         builder.setPositiveButton("确定",null);
         builder.create().show();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //EventBus.getDefault().unregister(this);
+    }
 }

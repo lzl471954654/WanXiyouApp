@@ -17,6 +17,8 @@ import com.lzl.wanxiyouapp.Adapter.EducationPagerAdapter;
 import com.lzl.wanxiyouapp.R;
 import com.lzl.wanxiyouapp.View.ViewInterface.ViewUpdateInterface;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,17 +34,24 @@ public class EducationFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //EventBus.getDefault().register(this);
+        System.out.println("EducationFragment!!!");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.education_fragment,container,false);
+        //refreshButton.setAnimation(new RotateAnimation(0,359));
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initView();
         refreshButton = (FloatingActionButton)root.findViewById(R.id.edu_refresh_button);
         refreshButton.setOnClickListener(this);
-        //refreshButton.setAnimation(new RotateAnimation(0,359));
-        return root;
     }
 
     @Override
@@ -73,5 +82,11 @@ public class EducationFragment extends Fragment implements View.OnClickListener 
         viewPager.setOffscreenPageLimit(3);
         tabLayout.setupWithViewPager(viewPager);
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //EventBus.getDefault().unregister(this);
     }
 }

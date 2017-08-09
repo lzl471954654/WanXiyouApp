@@ -46,7 +46,13 @@ public class LessonPresenter implements ILessonPresenter {
     @Override
     public void onRequestSuccess(List<List<Map<String,String>>> lists) {
         fragment.dissmisProgressDialog();
-        fragment.showLessonTable(lists);
+        try{
+            fragment.showLessonTable(lists);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            onRequestError("Unknown Exception");
+        }
     }
 
     public void onRequestError(String msg)

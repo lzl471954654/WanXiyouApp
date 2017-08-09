@@ -129,6 +129,7 @@ public class LogonMoudle implements ILogonMoudle {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
+                                    MyApplication.isLogon = true;
                                     presenter.onLogonSuccess();
                                 }
                             });

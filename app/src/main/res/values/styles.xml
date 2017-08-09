@@ -19,6 +19,10 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="AppTheme.Settings" parent="AppTheme.NoActionBar">
+        <item name="android:colorPrimaryDark">@color/color_top_bar</item>
+    </style>
     
     <style name="chartView">
         <item name="android:layout_width">16dp</item>

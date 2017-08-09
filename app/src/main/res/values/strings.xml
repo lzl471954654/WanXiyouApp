@@ -7,4 +7,12 @@
     <string name="dawer_close">close</string>
     <string name="logon_button">登陆</string>
     <string name="tips_no_logon">对不起您还没有登陆，暂时无法使用教务系统</string>
+    <string name="label_logout">退出当前登陆</string>
+    <string name="label_wifi_auto_update">WIFI环境下自动下载安装包</string>
+    <string name="label_clear_cache">清除缓存</string>
+    <string name="label_check_update">检查更新</string>
+    <string name="label_opensource">开源协议</string>
+    <string name="title_settings">设置</string>
+    <string name="label_about_us">关于我们</string>
+    <string name="label_commit_suggestion">问题反馈</string>
 </resources>

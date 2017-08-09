@@ -1,6 +1,7 @@
 package com.lzl.wanxiyouapp.View;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,8 @@ import com.lzl.wanxiyouapp.R;
 import com.lzl.wanxiyouapp.View.ViewInterface.IStudyPlanFragment;
 import com.lzl.wanxiyouapp.View.ViewInterface.ViewUpdateInterface;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -30,33 +33,44 @@ import java.util.Stack;
  * Created by LZL on 2017/7/25.
  */
 
-public class StudyPlanFragment extends Fragment implements IStudyPlanFragment,CardStackView.ItemExpendListener,ViewUpdateInterface{
+public class StudyPlanFragment extends Fragment implements IStudyPlanFragment, CardStackView.ItemExpendListener, ViewUpdateInterface {
     ProgressDialog progressDialog;
     AlertDialog.Builder errorDialog;
     CardStackView cardStackView;
     View root;
-
+    Context mContext;
     IStudyPlanPresenter presenter;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new StudyPlanFragmentPresenter(this,getContext());
+        //EventBus.getDefault().register(this);
+        presenter = new StudyPlanFragmentPresenter(this, getContext());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //EventBus.getDefault().unregister(this);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.plan_fragment_layout,container,false);
+        root = inflater.inflate(R.layout.plan_fragment_layout, container, false);
         initView();
         return root;
     }
 
-    public void initView()
-    {
-        cardStackView = (CardStackView)root.findViewById(R.id.plan_cardStackView);
+    public void initView() {
+        cardStackView = (CardStackView) root.findViewById(R.id.plan_cardStackView);
     }
-
 
 
     @Override
@@ -77,7 +91,7 @@ public class StudyPlanFragment extends Fragment implements IStudyPlanFragment,Ca
 
     @Override
     public void showProgressDialog() {
-        progressDialog = new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("请稍后正在加载");
         progressDialog.setCancelable(true);
         progressDialog.create();
@@ -86,8 +100,7 @@ public class StudyPlanFragment extends Fragment implements IStudyPlanFragment,Ca
 
     @Override
     public void dissmisProgressDialog() {
-        if(progressDialog!=null)
-        {
+        if (progressDialog != null) {
             progressDialog.dismiss();
             progressDialog = null;
         }
@@ -95,8 +108,8 @@ public class StudyPlanFragment extends Fragment implements IStudyPlanFragment,Ca
 
     @Override
     public void onRequestSuccess(List<List<Map<String, String>>> data) {
-        ScoresCardStackAdapter adapter = new ScoresCardStackAdapter(getContext());
-        adapter.updateData(Arrays.asList(color),data);
+        ScoresCardStackAdapter adapter = new ScoresCardStackAdapter(mContext);
+        adapter.updateData(Arrays.asList(color), data);
         cardStackView.setAdapter(adapter);
         cardStackView.setItemExpendListener(this);
     }
@@ -108,10 +121,10 @@ public class StudyPlanFragment extends Fragment implements IStudyPlanFragment,Ca
 
     @Override
     public void onRequestError(String msg) {
-        errorDialog = new AlertDialog.Builder(getContext());
+        errorDialog = new AlertDialog.Builder(mContext);
         errorDialog.setCancelable(false);
         errorDialog.setMessage(msg);
-        errorDialog.setPositiveButton("确定",null);
+        errorDialog.setPositiveButton("确定", null);
         errorDialog.setNegativeButton("重试", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

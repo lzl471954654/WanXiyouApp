@@ -28,6 +28,8 @@
             />
         <activity android:name=".View.LogonActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".View.ActivitySettings"
+            android:theme="@style/AppTheme.Settings"/>
     </application>
 
 </manifest>

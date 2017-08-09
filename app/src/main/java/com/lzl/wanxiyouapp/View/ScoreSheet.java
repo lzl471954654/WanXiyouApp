@@ -2,6 +2,7 @@ package com.lzl.wanxiyouapp.View;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,8 @@ import com.lzl.wanxiyouapp.Presenter.ScoreSheetPresenter;
 import com.lzl.wanxiyouapp.R;
 import com.lzl.wanxiyouapp.View.ViewInterface.IScoreSheet;
 import com.lzl.wanxiyouapp.View.ViewInterface.ViewUpdateInterface;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -41,12 +44,20 @@ public class ScoreSheet extends Fragment implements IScoreSheet,ViewUpdateInterf
     View root;
     ProgressDialog progressDialog;
     AlertDialog.Builder errorDialog;
+    Context mContext;
 
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new ScoreSheetPresenter(getContext(),this);
+        //EventBus.getDefault().register(this);
+        presenter = new ScoreSheetPresenter(mContext,this);
     }
 
     @Override
@@ -77,7 +88,7 @@ public class ScoreSheet extends Fragment implements IScoreSheet,ViewUpdateInterf
 
     public void showProgressDialog()
     {
-        progressDialog = new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("请稍后正在加载");
         progressDialog.setCancelable(true);
         progressDialog.create();
@@ -101,7 +112,7 @@ public class ScoreSheet extends Fragment implements IScoreSheet,ViewUpdateInterf
 
     @Override
     public void showErrorDialog(String msg) {
-        errorDialog = new AlertDialog.Builder(getContext());
+        errorDialog = new AlertDialog.Builder(mContext);
         errorDialog.setCancelable(true);
         errorDialog.setMessage(msg);
         errorDialog.setPositiveButton("确定",null);
@@ -186,6 +197,13 @@ public class ScoreSheet extends Fragment implements IScoreSheet,ViewUpdateInterf
             System.out.println(other_height);
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //EventBus.getDefault().unregister(this);
+    }
+
     TextView[] sheetData = new TextView[20];
     int[] sheet = {
             R.id.sheet1,

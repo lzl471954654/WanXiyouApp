@@ -21,4 +21,5 @@ public class MyApplication extends Application {
     public static List<List<String>> responseData;
     public static List<List<Map<String,String>>> planList;
     public static boolean peEnable = false;
+    public static boolean isLogon = false;
 }

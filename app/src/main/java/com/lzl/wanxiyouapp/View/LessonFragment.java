@@ -1,7 +1,9 @@
 package com.lzl.wanxiyouapp.View;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -27,6 +29,8 @@ import com.lzl.wanxiyouapp.R;
 import com.lzl.wanxiyouapp.View.ViewInterface.ILessonFragment;
 import com.lzl.wanxiyouapp.View.ViewInterface.ViewUpdateInterface;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -43,12 +47,29 @@ public class LessonFragment extends Fragment implements ILessonFragment,ViewUpda
     ProgressDialog progressDialog;
     AlertDialog.Builder errorDialog;
     ILessonPresenter presenter;
+    Context myContext;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.myContext = context;
+    }
+
+    public Context getMyContext() {
+        return myContext;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //EventBus.getDefault().register(this);
         presenter = new LessonPresenter(this,getContext());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //EventBus.getDefault().unregister(this);
     }
 
     @Nullable
@@ -56,12 +77,13 @@ public class LessonFragment extends Fragment implements ILessonFragment,ViewUpda
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lessons_layout,container,false);
         root = view;
-        initView();
         return root;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        initView();
+        System.out.println("Is Added :"+isAdded());
         presenter.checkHasData();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -97,7 +119,7 @@ public class LessonFragment extends Fragment implements ILessonFragment,ViewUpda
 
     @Override
     public void showErrorDialog(String msg) {
-        errorDialog = new AlertDialog.Builder(getContext());
+        errorDialog = new AlertDialog.Builder(getMyContext());
         errorDialog.setCancelable(true);
         errorDialog.setMessage(msg);
         errorDialog.setPositiveButton("确定",null);
@@ -132,24 +154,24 @@ public class LessonFragment extends Fragment implements ILessonFragment,ViewUpda
                 Map<String,String> map = mapList.get(j);
                 if(map.get("empty").equals("0"))
                 {
-                    FrameLayout frameLayout = new FrameLayout(getActivity());
+                    FrameLayout frameLayout = new FrameLayout(getMyContext());
                     frameLayout.setBackgroundResource(R.drawable.lesson_card_backgraound);
                     FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((1080-getRealPixel(35))/7,getRealPixel(110));
                     frameLayout.setLayoutParams(params);
                     frameLayout.setPadding(5,5,5,5);
 
-                    TextView textView = new TextView(getContext());
+                    TextView textView = new TextView(getMyContext());
                     ViewGroup.LayoutParams params1 = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                     textView.setLayoutParams(params1);
                     textView.setGravity(Gravity.CENTER);
                     textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
-                    textView.setTextColor(ContextCompat.getColor(getContext(),R.color.icons));
+                    textView.setTextColor(ContextCompat.getColor(getMyContext(),R.color.icons));
 
                     String lessonData = map.get("lesson");
                     lessonData = checkSame(lessonData);
                     textView.setText(lessonData);
                     textView.setBackgroundResource(R.drawable.lesson_card_backgraound);
-                    textView.getBackground().setColorFilter(ContextCompat.getColor(getContext(),chooseColor()), PorterDuff.Mode.SRC_IN);
+                    textView.getBackground().setColorFilter(ContextCompat.getColor(getMyContext(),chooseColor()), PorterDuff.Mode.SRC_IN);
                     FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams((1080-getRealPixel(35))/7,getRealPixel(110));
                     layoutParams.setMargins(getRealPixel(getRealDP((1080-getRealPixel(35))/7)*j),getRealPixel(i*110),0,0);
                     frameLayout.addView(textView);
@@ -174,14 +196,14 @@ public class LessonFragment extends Fragment implements ILessonFragment,ViewUpda
     public int getRealPixel(int dp)
     {
 
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics(); //Get the screen dpi
+        DisplayMetrics displayMetrics = myContext.getResources().getDisplayMetrics(); //Get the screen dpi
         int DPI = displayMetrics.densityDpi;
         return dp*DPI/160;
     }
 
     public int getRealDP(int pixel)
     {
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics(); //Get the screen dpi
+        DisplayMetrics displayMetrics = myContext.getResources().getDisplayMetrics(); //Get the screen dpi
         int DPI = displayMetrics.densityDpi;
         return pixel*160/DPI;
     }

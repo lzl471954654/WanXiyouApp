@@ -192,6 +192,8 @@ public class XuptManagement implements IXuptManagement {
                             map.put("xm",data1.getString("xm"));
                             map.put("zy",data1.getString("zy"));
                             final Student student = new Student(jsonObject.getString("id"),jsonObject.getString("name"),jsonObject.getString("cookie"),map);
+                            MyApplication.student = student;
+                            MyApplication.isLogon = true;
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
